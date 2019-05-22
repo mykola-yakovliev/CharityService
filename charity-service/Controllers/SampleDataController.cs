@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace charity_cervice.Controllers
+namespace CharityService.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller
