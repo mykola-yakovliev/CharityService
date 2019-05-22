@@ -27,6 +27,8 @@ namespace charity_cervice
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddOpenApiDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,6 +68,14 @@ namespace charity_cervice
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            app.UseSwagger(options =>
+            {
+                options.DocumentName = "swagger";
+                options.Path = "/swagger/v1/swagger.json";
+            });
+            app.UseSwaggerUi3();
+            app.UseReDoc();
         }
     }
 }
