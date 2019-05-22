@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SampleDataClient } from 'src/generated';
 
 @Component({
   selector: 'app-project-list',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectListComponent implements OnInit {
 
-  constructor() { }
+  constructor(public data: SampleDataClient) { }
 
   ngOnInit() {
   }
