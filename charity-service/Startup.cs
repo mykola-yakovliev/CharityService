@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace charity_cervice
+namespace CharityService
 {
     public class Startup
     {
@@ -49,12 +49,15 @@ namespace charity_cervice
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            app.UseSwagger();
+            app.UseSwaggerUi3();
+            
             app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-            });
+                {
+                    routes.MapRoute(
+                        name: "default",
+                        template: "{controller}/{action=Index}/{id?}");
+                });
 
             app.UseSpa(spa =>
             {
@@ -69,13 +72,16 @@ namespace charity_cervice
                 }
             });
 
-            app.UseSwagger(options =>
+            app.MapWhen(x => !x.Request.Path.Value.StartsWith("/swagger"), builder =>
             {
-                options.DocumentName = "swagger";
-                options.Path = "/swagger/v1/swagger.json";
+                builder.UseMvc(routes =>
+                {
+                    routes.MapSpaFallbackRoute(
+                        name: "spa-fallback",
+                        defaults: new { controller = "Home", action = "Index" });
+                });
             });
-            app.UseSwaggerUi3();
-            app.UseReDoc();
+
         }
     }
 }
