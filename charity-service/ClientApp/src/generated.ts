@@ -7,101 +7,75 @@
 //----------------------
 // ReSharper disable InconsistentNaming
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { mergeMap as _observableMergeMap, catchError as _observableCatch } from 'rxjs/operators';
+import { Observable, throwError as _observableThrow, of as _observableOf } from 'rxjs';
+import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
+export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
+
+@Injectable({
+    providedIn: 'root'
+})
 export class SampleDataClient {
-    private instance: AxiosInstance;
+    private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor(baseUrl?: string, instance?: AxiosInstance) {
-        this.instance = instance ? instance : axios.create();
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
         this.baseUrl = baseUrl ? baseUrl : "https://localhost:44318";
     }
 
-    weatherForecasts(): Promise<WeatherForecast[] | null> {
+    weatherForecasts(): Observable<WeatherForecast[] | null> {
         let url_ = this.baseUrl + "/api/SampleData/WeatherForecasts";
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_ = <AxiosRequestConfig>{
-            method: "GET",
-            url: url_,
-            headers: {
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
                 "Accept": "application/json"
-            }
+            })
         };
 
-        return this.instance.request(options_).then((_response: AxiosResponse) => {
-            return this.processWeatherForecasts(_response);
-        });
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processWeatherForecasts(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processWeatherForecasts(<any>response_);
+                } catch (e) {
+                    return <Observable<WeatherForecast[] | null>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<WeatherForecast[] | null>><any>_observableThrow(response_);
+        }));
     }
 
-    protected processWeatherForecasts(response: AxiosResponse): Promise<WeatherForecast[] | null> {
+    protected processWeatherForecasts(response: HttpResponseBase): Observable<WeatherForecast[] | null> {
         const status = response.status;
-        let _headers: any = {}; 
-        if (response.headers && response.headers.forEach) { 
-            response.headers.forEach((v: any, k: any) => _headers[k] = v);
-        };
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
         if (status === 200) {
-            const _responseText = response.data;
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
-            let resultData200  = _responseText;
-            if (resultData200 && resultData200.constructor === Array) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(WeatherForecast.fromJS(item));
-            }
-            return result200;
+            result200 = _responseText === "" ? null : <WeatherForecast[]>JSON.parse(_responseText, this.jsonParseReviver);
+            return _observableOf(result200);
+            }));
         } else if (status !== 200 && status !== 204) {
-            const _responseText = response.data;
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
         }
-        return Promise.resolve<WeatherForecast[] | null>(<any>null);
+        return _observableOf<WeatherForecast[] | null>(<any>null);
     }
 }
 
-export class WeatherForecast implements IWeatherForecast {
-    dateFormatted?: string | undefined;
-    temperatureC?: number;
-    summary?: string | undefined;
-    temperatureF?: number;
-
-    constructor(data?: IWeatherForecast) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.dateFormatted = data["dateFormatted"];
-            this.temperatureC = data["temperatureC"];
-            this.summary = data["summary"];
-            this.temperatureF = data["temperatureF"];
-        }
-    }
-
-    static fromJS(data: any): WeatherForecast {
-        data = typeof data === 'object' ? data : {};
-        let result = new WeatherForecast();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["dateFormatted"] = this.dateFormatted;
-        data["temperatureC"] = this.temperatureC;
-        data["summary"] = this.summary;
-        data["temperatureF"] = this.temperatureF;
-        return data; 
-    }
-}
-
-export interface IWeatherForecast {
+export interface WeatherForecast {
     dateFormatted?: string | undefined;
     temperatureC?: number;
     summary?: string | undefined;
@@ -132,9 +106,25 @@ export class SwaggerException extends Error {
     }
 }
 
-function throwException(message: string, status: number, response: string, headers: { [key: string]: any; }, result?: any): any {
+function throwException(message: string, status: number, response: string, headers: { [key: string]: any; }, result?: any): Observable<any> {
     if(result !== null && result !== undefined)
-        throw result;
+        return _observableThrow(result);
     else
-        throw new SwaggerException(message, status, response, headers, null);
+        return _observableThrow(new SwaggerException(message, status, response, headers, null));
+}
+
+function blobToText(blob: any): Observable<string> {
+    return new Observable<string>((observer: any) => {
+        if (!blob) {
+            observer.next("");
+            observer.complete();
+        } else {
+            let reader = new FileReader(); 
+            reader.onload = event => { 
+                observer.next((<any>event.target).result);
+                observer.complete();
+            };
+            reader.readAsText(blob); 
+        }
+    });
 }
