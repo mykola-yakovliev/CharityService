@@ -52,13 +52,6 @@ namespace CharityService
             app.UseSwagger();
             app.UseSwaggerUi3();
             
-            app.UseMvc(routes =>
-                {
-                    routes.MapRoute(
-                        name: "default",
-                        template: "{controller}/{action=Index}/{id?}");
-                });
-
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
@@ -77,11 +70,10 @@ namespace CharityService
                 builder.UseMvc(routes =>
                 {
                     routes.MapSpaFallbackRoute(
-                        name: "spa-fallback",
+                        name: "default",
                         defaults: new { controller = "Home", action = "Index" });
                 });
             });
-
         }
     }
 }
