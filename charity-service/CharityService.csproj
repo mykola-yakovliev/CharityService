@@ -11,15 +11,17 @@
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
     <RootNamespace>CharityService</RootNamespace>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\serge\Documents\CharityService\charity-service\CharityService.xml</DocumentationFile>
+    <DocumentationFile>swagger/CharityService.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
     <PackageReference Include="NSwag.Annotations" Version="12.3.1" />
     <PackageReference Include="NSwag.AspNetCore" Version="12.3.1" />
     <PackageReference Include="NSwag.Core" Version="12.3.1" />

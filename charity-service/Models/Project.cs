@@ -1,4 +1,4 @@
-﻿namespace charity_cervice.Models
+﻿namespace CharityService.Models
 {
     public class Project
     {
@@ -11,5 +11,7 @@
         public string Image { get; set; }
 
         public int FoundationId { get; set; }
+
+        public virtual Foundation Foundation { get; set; }
     }
 }
