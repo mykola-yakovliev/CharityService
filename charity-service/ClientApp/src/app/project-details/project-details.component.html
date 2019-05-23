@@ -1,3 +1,20 @@
-<p>
-  project-details works!
-</p>
+<div class="project-details">
+    <div class="project-details-content">
+        <div class="project-details-img-wrapper">
+            <img [src]="data?.image">
+        </div>
+        <div class="project-details-info-wrapper">
+            <div class="project-details-main-info-wrapper">
+                <div class="project-details-name">{{ data?.name }}</div>
+                <mat-chip-list>
+                    <mat-chip *ngFor="let category of data?.categoryNames"  color="primary" >{{ category }}</mat-chip>
+                </mat-chip-list>
+                <div class="project-details-foundations">{{ data?.foundationName }}</div>
+            </div>
+            <div class="project-details-button">
+                <button mat-raised-button color="primary">Click me!</button>
+            </div>
+        </div>
+    </div>
+    <div class="project-details-description">{{ data?.description }}</div>
+</div>
