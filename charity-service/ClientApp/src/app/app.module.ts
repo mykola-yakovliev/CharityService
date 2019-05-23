@@ -14,6 +14,7 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatCardModule,
     MatChipsModule,
     MatButtonModule,
+    MatIconModule,
 
     RouterModule.forRoot(ROUTES),
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
