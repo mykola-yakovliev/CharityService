@@ -3,6 +3,6 @@ export interface ProjectDetails {
     name: string;
     foundationName: string;
     categoryNames: string[];
-    description: string;
+    description?: string;
     image: string;
 }
