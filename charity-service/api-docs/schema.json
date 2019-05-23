@@ -1,0 +1,66 @@
+[
+    {
+        "name": "project-list",
+        "type": "array",
+        "api": {
+            "base": "/api/projects",
+            "queryParameters": [
+                {
+                    "foundationIds": "int[]",
+                    "categoryIds": "int[]"
+                }
+            ]
+        },
+        "$schema": {
+            "id": "int",
+            "name": "string",
+            "image": "string",
+            "foundationName": "string",
+            "categoryNames": "string[]"
+        }
+    },
+    {
+        "name": "foundation-list",
+        "type": "array",
+        "api": {
+            "base": "/api/foundations"
+        },
+        "$schema": {
+            "id": "int",
+            "name": "string"
+        }
+    },
+    {
+        "name": "category-list",
+        "type": "array",
+        "api": {
+            "base": "/api/foundations"
+        },
+        "$schema": {
+            "id": "int",
+            "name": "string"
+        }
+    },
+    {
+        "name": "project-details",
+        "type": "project",
+        "api": {
+            "base": "/api/projects/{id:int}"
+        },
+        "$schema": {
+            "name": "string",
+            "description": "string",
+            "image": "string",
+            "foundationName": "string",
+            "categoryNames": "string[]"
+        }
+    },
+    {
+        "name": "payment-submit",
+        "type": "null",
+        "api": {
+            "base": "/api/payments",
+            "method": "POST"
+        }
+    }
+]
