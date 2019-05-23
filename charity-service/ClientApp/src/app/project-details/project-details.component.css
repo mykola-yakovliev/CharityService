@@ -1,0 +1,47 @@
+.project-details {
+    display: flex;
+    flex-direction: column;
+    width: 1024px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    margin-top: 20px;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+.project-details-content {
+    display: flex;
+}
+
+.project-details-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.project-details-img-wrapper {
+    margin-right: 20px;
+}
+
+.project-details-img-wrapper img {
+    width: 300px;
+    height: 300px;
+}
+
+.project-details-main-info-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.project-details-name {
+    font-size: 20px;
+    margin: 12px 0;
+}
+
+.project-details-foundations {
+    margin-top: 20px;
+    color: rgba(0,0,0,0.54);
+    font-size: 14px;
+}
+
+.project-details-description {
+    padding: 20px;
+}

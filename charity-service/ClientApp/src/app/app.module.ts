@@ -10,6 +10,7 @@ import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { PaymentPageComponent } from './payment-page/payment-page.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
@@ -30,6 +31,7 @@ import {MatButtonModule} from '@angular/material/button';
 
     RouterModule.forRoot(ROUTES),
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule
   ],
