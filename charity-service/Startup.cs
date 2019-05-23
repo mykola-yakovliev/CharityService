@@ -1,4 +1,5 @@
 using CharityService.Conventions;
+using CharityService.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ namespace CharityService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(opts => opts.UseInMemoryDatabase("test"));
+            services.AddTransient<FakeDataInitializer>();
 
             services.AddMvc(o =>
             {
@@ -70,6 +72,13 @@ namespace CharityService
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var fakeDataInitializer = scope.ServiceProvider.GetRequiredService<FakeDataInitializer>();
+
+                fakeDataInitializer.Init();
+            }
         }
     }
 }
