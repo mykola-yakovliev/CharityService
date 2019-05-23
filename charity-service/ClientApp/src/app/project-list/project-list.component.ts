@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SampleDataClient } from 'src/generated';
+import { SampleDataClient, WeatherForecast } from 'src/generated';
 
 @Component({
   selector: 'app-project-list',
@@ -7,10 +7,11 @@ import { SampleDataClient } from 'src/generated';
   styleUrls: ['./project-list.component.css']
 })
 export class ProjectListComponent implements OnInit {
+  public data: WeatherForecast[] = [];
 
-  constructor(public data: SampleDataClient) { }
+  constructor(private sampleDataClient: SampleDataClient) { }
 
   ngOnInit() {
+    this.sampleDataClient.weatherForecasts().subscribe((forcasts: WeatherForecast[]) => this.data = forcasts);
   }
-
 }
