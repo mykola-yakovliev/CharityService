@@ -18,7 +18,7 @@ namespace CharityService.Configurations
                 .WithMany()
                 .HasForeignKey(entity => entity.CategoryId);
             builder.HasOne(entity => entity.Project)
-                .WithMany()
+                .WithMany(entity => entity.Categories)
                 .HasForeignKey(entity => entity.ProjectId);
         }
     }

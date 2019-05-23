@@ -1,3 +1,4 @@
+using CharityService.Conventions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,10 @@ namespace CharityService
         {
             services.AddDbContext<ApplicationDbContext>(opts => opts.UseInMemoryDatabase("test"));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(o =>
+            {
+                o.Conventions.Add(new CommaSeparatedQueryStringConvention());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddSpaStaticFiles(configuration =>
             {
