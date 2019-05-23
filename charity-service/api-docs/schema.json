@@ -34,7 +34,7 @@
     "name": "category-list",
     "type": "array",
     "api": {
-      "base": "/api/foundations"
+      "base": "/api/categories"
     },
     "$schema": {
       "id": "int",
