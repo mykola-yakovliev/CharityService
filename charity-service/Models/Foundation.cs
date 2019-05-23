@@ -1,4 +1,4 @@
-﻿namespace charity_cervice.Models
+﻿namespace CharityService.Models
 {
     public class Foundation
     {
