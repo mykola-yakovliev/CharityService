@@ -1,0 +1,44 @@
+:host {
+    display: flex;
+}
+
+.wrapper {
+    width: 1024px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 10px #999999;
+    height: 100vh;
+}
+
+.banner {
+    width: 780px;
+    height: 300px;
+    background-color: #23B67F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-circle {
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.thank-you-text {
+    color: #23B67F;
+    font-size: 20px;
+    margin-top: 20px; 
+}
+
+mat-icon {
+    font-size: 90px;
+    width: 90px;
+    height: 90px;
+    color: #FDD3AE;
+}
