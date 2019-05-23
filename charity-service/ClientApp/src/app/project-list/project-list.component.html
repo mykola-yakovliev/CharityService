@@ -1,1 +1,19 @@
-<div>{{data | json}}</div>
+<div class="project-list">
+    <mat-card *ngFor="let project of projects" class="project-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{ project?.name }}</mat-card-title>
+            <mat-card-subtitle>{{ project?.foundationName }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="project?.image" alt="Photo">
+        <mat-card-content>
+            <mat-chip-list>
+                <mat-chip *ngFor="let category of project?.categoryNames"  color="primary" >{{ category }}</mat-chip>
+            </mat-chip-list>
+        </mat-card-content>
+        <mat-card-actions>
+            <button (click)="goToDetails(project?.id)" mat-raised-button color="basic">Details</button>
+            <button mat-raised-button color="primary">Donate</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

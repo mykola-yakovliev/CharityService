@@ -11,6 +11,10 @@ import { ProjectDetailsComponent } from './project-details/project-details.compo
 import { PaymentPageComponent } from './payment-page/payment-page.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 
+import {MatCardModule} from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatButtonModule} from '@angular/material/button';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +24,10 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
     ThankYouComponent
   ],
   imports: [
+    MatCardModule,
+    MatChipsModule,
+    MatButtonModule,
+
     RouterModule.forRoot(ROUTES),
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
