@@ -17,6 +17,193 @@ export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 @Injectable({
     providedIn: 'root'
 })
+export class CategoriesClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44318";
+    }
+
+    getCategories(): Observable<Category[] | null> {
+        let url_ = this.baseUrl + "/api/Categories";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCategories(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCategories(<any>response_);
+                } catch (e) {
+                    return <Observable<Category[] | null>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<Category[] | null>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCategories(response: HttpResponseBase): Observable<Category[] | null> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : <Category[]>JSON.parse(_responseText, this.jsonParseReviver);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<Category[] | null>(<any>null);
+    }
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class FoundationsClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44318";
+    }
+
+    list(): Observable<Foundation[] | null> {
+        let url_ = this.baseUrl + "/api/Foundations";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processList(<any>response_);
+                } catch (e) {
+                    return <Observable<Foundation[] | null>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<Foundation[] | null>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processList(response: HttpResponseBase): Observable<Foundation[] | null> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : <Foundation[]>JSON.parse(_responseText, this.jsonParseReviver);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<Foundation[] | null>(<any>null);
+    }
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class ProjectsClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "https://localhost:44318";
+    }
+
+    getProjects(foundationIds: number[] | null | undefined, categoryIds: number[] | null | undefined): Observable<ProjectApiModel[] | null> {
+        let url_ = this.baseUrl + "/api/Projects?";
+        if (foundationIds !== undefined)
+            foundationIds && foundationIds.forEach(item => { url_ += "foundationIds=" + encodeURIComponent("" + item) + "&"; });
+        if (categoryIds !== undefined)
+            categoryIds && categoryIds.forEach(item => { url_ += "categoryIds=" + encodeURIComponent("" + item) + "&"; });
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProjects(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProjects(<any>response_);
+                } catch (e) {
+                    return <Observable<ProjectApiModel[] | null>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProjectApiModel[] | null>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProjects(response: HttpResponseBase): Observable<ProjectApiModel[] | null> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : <ProjectApiModel[]>JSON.parse(_responseText, this.jsonParseReviver);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProjectApiModel[] | null>(<any>null);
+    }
+}
+
+@Injectable({
+    providedIn: 'root'
+})
 export class SampleDataClient {
     private http: HttpClient;
     private baseUrl: string;
@@ -73,6 +260,25 @@ export class SampleDataClient {
         }
         return _observableOf<WeatherForecast[] | null>(<any>null);
     }
+}
+
+export interface Category {
+    id?: number;
+    name?: string | undefined;
+}
+
+export interface Foundation {
+    id?: number;
+    name?: string | undefined;
+}
+
+export interface ProjectApiModel {
+    id?: number;
+    name?: string | undefined;
+    description?: string | undefined;
+    image?: string | undefined;
+    foundationName?: string | undefined;
+    categoryNames?: string[] | undefined;
 }
 
 export interface WeatherForecast {

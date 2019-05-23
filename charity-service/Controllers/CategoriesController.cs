@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using CharityService.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,11 +16,11 @@ namespace CharityService.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> List()
+        public async Task<IEnumerable<Category>> GetCategories()
         {
             var categories = await context.Categories.ToListAsync();
 
-            return Ok(categories);
+            return categories;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace CharityService.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> List([CommaSeparated] IEnumerable<int> foundationIds, [CommaSeparated] IEnumerable<int> categoryIds)
+        public async Task<IEnumerable<ProjectApiModel>> GetProjects([CommaSeparated] IEnumerable<int> foundationIds, [CommaSeparated] IEnumerable<int> categoryIds)
         {
             IQueryable<Project> projectEntities = context
                 .Projects
@@ -53,7 +53,7 @@ namespace CharityService.Controllers
                     CategoryNames = project.Categories.Select(c => c.Category.Name)
                 });
 
-            return Ok(projects);
+            return projects;
         }
     }
 }
