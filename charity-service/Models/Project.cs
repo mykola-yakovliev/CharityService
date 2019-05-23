@@ -1,4 +1,6 @@
-﻿namespace CharityService.Models
+﻿using System.Collections.Generic;
+
+namespace CharityService.Models
 {
     public class Project
     {
@@ -13,5 +15,7 @@
         public int FoundationId { get; set; }
 
         public virtual Foundation Foundation { get; set; }
+
+        public IEnumerable<ProjectCategory> Categories { get; set; }
     }
 }
