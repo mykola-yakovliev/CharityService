@@ -13,3 +13,19 @@
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
 }
+
+.project-filters form {
+    display: flex;
+    width: 1024px;
+    justify-content: center;
+}
+
+.foundations {    
+    width: 400px;
+    margin-right: 10px;
+}
+
+.categories {
+    margin-left: 10px;
+    width: 300px;
+}
