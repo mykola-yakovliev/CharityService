@@ -12,7 +12,6 @@ import { appRoutes } from '../app.routes';
 export class ProjectListComponent implements OnInit {
   public filterForm: FormGroup;
   public data: WeatherForecast[] = [];
-  
   public projects: ProjectApiModel[] = [];
   public foundations = [
     {
@@ -61,5 +60,9 @@ export class ProjectListComponent implements OnInit {
 
   goToDetails(id: number) {
     this.router.navigate([appRoutes.ProjectDetails.path, id]);
+  }
+
+  goToPayment(id: number) {
+      this.router.navigate([appRoutes.ProjectDetails.path + id + appRoutes.PaymentPage.path]);
   }
 }

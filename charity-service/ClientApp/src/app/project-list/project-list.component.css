@@ -5,8 +5,15 @@
 }
 
 .project-card {
-    flex-basis: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    flex-basis: 472px;
     margin: 20px;
+}
+
+.project-card mat-card-content {
+    min-height: 40px;
 }
 
 .example-header-image {
