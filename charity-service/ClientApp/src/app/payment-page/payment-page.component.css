@@ -55,6 +55,11 @@
     justify-content: space-between;
 }
 
+.payment-amount {
+    display: flex;
+    justify-content: space-between;
+}
+
 mat-form-field {
     width: 300px;
 }

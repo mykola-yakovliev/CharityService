@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectDetailsService } from '../project-details/project-details.service';
-import { ProjectApiModel } from 'src/generated';
+import { ProjectApiModel, ProjectsClient } from 'src/generated';
 import { appRoutes } from '../app.routes';
 
 @Component({
@@ -13,11 +13,16 @@ import { appRoutes } from '../app.routes';
 export class PaymentPageComponent implements OnInit {
     public data: ProjectApiModel;
     public paymentData: FormGroup;
+    public paymentTypes: string[] = [
+        'Visa',
+        'Mastercard',
+        'AmericanExpress'
+    ];
     private id: number;
 
     constructor(private fb: FormBuilder,
                 private route: ActivatedRoute,
-                private projDetailsService: ProjectDetailsService,
+                private _projectClient: ProjectsClient,
                 private router: Router) { }
 
     public ngOnInit(): void {
@@ -29,8 +34,8 @@ export class PaymentPageComponent implements OnInit {
         });
         this.route.params.subscribe(({ id }: { id: number }) => {
             this.id = id;
+            this._projectClient.getProject(this.id).subscribe(data => this.data = data);
         });
-        this.projDetailsService.getCurrentProject(this.id).subscribe(data => this.data = data);
     }
 
     public navigateBack() {

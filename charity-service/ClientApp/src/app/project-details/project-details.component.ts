@@ -1,8 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProjectApiModel } from 'src/generated';
-import { ProjectDetailsService } from './project-details.service';
+import { ProjectApiModel, ProjectsClient } from 'src/generated';
 import { appRoutes } from '../app.routes';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-project-details',
@@ -13,12 +12,12 @@ export class ProjectDetailsComponent implements OnInit {
     public id: number;
     public data: ProjectApiModel;
 
-    constructor(private projDetailsService: ProjectDetailsService, private route: ActivatedRoute, private router: Router) { }
+    constructor(private _projectClient: ProjectsClient, private route: ActivatedRoute, private router: Router) { }
 
     public ngOnInit(): void {
         this.route.params.subscribe(({ id }: { id: number }) => {
             this.id = id;
-            this.projDetailsService.getCurrentProject(this.id).subscribe(data => this.data = data);
+            this._projectClient.getProject(this.id).subscribe(data => this.data = data);
         });
     }
 

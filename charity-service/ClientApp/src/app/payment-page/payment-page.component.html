@@ -27,7 +27,14 @@
         </div>
         <div class="payment-amount">
             <mat-form-field>
-                <input matInput type="text" placeholder="Amount" formControlName="amount">
+                <input matInput type="text" placeholder="Amount (€)" formControlName="amount">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select placeholder="Payment method">
+                    <mat-option *ngFor="let type of paymentTypes" [value]="type">
+                        {{type}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
         </div>
         <div class="project-details-button">
