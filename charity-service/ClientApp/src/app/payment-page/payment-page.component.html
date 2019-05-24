@@ -1,3 +1,38 @@
-<p>
-  payment-page works!
-</p>
+<div class="project-details">
+    <div class="project-details-content">
+        <div class="project-details-img-wrapper">
+            <img [src]="data?.image">
+        </div>
+        <div class="project-details-info-wrapper">
+            <div class="project-details-main-info-wrapper">
+                <div class="project-details-name">{{ data?.name }}</div>
+                <mat-chip-list>
+                    <mat-chip *ngFor="let category of data?.categoryNames"  color="primary" >{{ category }}</mat-chip>
+                </mat-chip-list>
+                <div class="project-details-foundations">{{ data?.foundationName }}</div>
+            </div>
+        </div>
+    </div>
+    <form class="project-details-description" [formGroup]="paymentData">
+        <div class="payment-user-data">
+            <mat-form-field>
+                <input matInput type="text" placeholder="Name" formControlName="name">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="text" placeholder="Surname" formControlName="surname">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="text" placeholder="Email" formControlName="email">
+            </mat-form-field>
+        </div>
+        <div class="payment-amount">
+            <mat-form-field>
+                <input matInput type="text" placeholder="Amount" formControlName="amount">
+            </mat-form-field>
+        </div>
+        <div class="project-details-button">
+            <button mat-raised-button color="basic" (click)="navigateBack()">Back to project</button>
+            <button mat-raised-button color="primary" type="submit" (click)="toThankYou()">Donate</button>
+        </div>
+    </form>
+</div>

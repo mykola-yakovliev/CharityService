@@ -12,7 +12,8 @@
                 <div class="project-details-foundations">{{ data?.foundationName }}</div>
             </div>
             <div class="project-details-button">
-                <button mat-raised-button color="primary">Click me!</button>
+                <button (click)="navigateBack()" mat-raised-button color="basic">Back to project</button>
+                <button (click)="goToPayment(data?.id)" mat-raised-button color="primary">Donate</button>
             </div>
         </div>
     </div>
