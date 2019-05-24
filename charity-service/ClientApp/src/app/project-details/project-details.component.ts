@@ -18,16 +18,16 @@ export class ProjectDetailsComponent implements OnInit {
     public ngOnInit(): void {
         this.route.params.subscribe(({ id }: { id: number }) => {
             this.id = id;
+            this.projDetailsService.getCurrentProject(this.id).subscribe(data => this.data = data);
         });
-        this.projDetailsService.getCurrentProject(this.id).subscribe(data => this.data = data);
     }
 
     public navigateBack(): void {
         this.router.navigate([appRoutes.ProjectList.path]);
     }
 
-    public goToPayment(id: number): void {
-        this.router.navigate([appRoutes.ProjectDetails.path + id + appRoutes.PaymentPage.path]);
+    public goToPayment(): void {
+        this.router.navigate([appRoutes.ProjectDetails.path + this.id + appRoutes.PaymentPage.path]);
     }
 
 }
