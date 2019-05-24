@@ -55,5 +55,30 @@ namespace CharityService.Controllers
 
             return projects;
         }
+
+        [HttpGet]
+        public async Task<ProjectApiModel> GetProject(int id)
+        {
+            Project project = await context.Projects
+                .Include(p => p.Foundation)
+                .Include(p => p.Categories)
+                .ThenInclude(p => p.Category)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (project == null)
+            {
+                return null;
+            }
+
+            return new ProjectApiModel
+            {
+                Id = project.Id,
+                Name = project.Name,
+                Description = project.Description,
+                Image = project.Image,
+                FoundationName = project.Foundation.Name,
+                CategoryNames = project.Categories.Select(c => c.Category.Name)
+            };
+        }
     }
 }
