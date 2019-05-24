@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProjectDetailsService } from '../project-details/project-details.service';
 import { ProjectApiModel, ProjectsClient } from 'src/generated';
 import { appRoutes } from '../app.routes';
 

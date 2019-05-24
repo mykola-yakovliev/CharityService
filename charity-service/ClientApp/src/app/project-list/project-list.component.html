@@ -1,24 +1,32 @@
 <div class="project-filters">
-    <form [formGroup]="filterForm">
-        <mat-form-field class="foundations">
-            <mat-label>Select Foundations</mat-label>
-            <mat-select>
-                <mat-option *ngFor="let foundation of foundations" [value]="foundation.id">
-                    {{foundation.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        
-        <div class="categories">
-            <ng-container formArrayName="categories">
-                <div *ngFor="let category of categories; let i = index" >
-                    <mat-checkbox class="example-margin" [formControlName]="i">
-                        {{category.name}}
-                    </mat-checkbox>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Filters</mat-panel-title>
+            </mat-expansion-panel-header>
+            <form [formGroup]="filterForm">
+                <div class="foundations">
+                    <ng-container formArrayName="foundations">
+                        <div *ngFor="let foundation of foundations; let i = index" >
+                            <mat-checkbox class="example-margin" [formControlName]="i">
+                                {{foundation.name}}
+                            </mat-checkbox>
+                        </div>
+                    </ng-container>
                 </div>
-            </ng-container>
-        </div>
-    </form>
+                
+                <div class="categories">
+                    <ng-container formArrayName="categories">
+                        <div *ngFor="let category of categories; let i = index" >
+                            <mat-checkbox class="example-margin" [formControlName]="i">
+                                {{category.name}}
+                            </mat-checkbox>
+                        </div>
+                    </ng-container>
+                </div>
+            </form>
+        </mat-expansion-panel>
+    </mat-accordion>
 </div>
 <div class="project-list">
     <mat-card *ngFor="let project of projects" class="project-card">

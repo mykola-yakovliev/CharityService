@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 50px;
 }
 
 .project-card {
@@ -27,6 +28,11 @@
     justify-content: center;
 }
 
+.project-filters {
+    position: fixed;
+    z-index: 1000;
+}
+
 .foundations {    
     width: 400px;
     margin-right: 10px;
@@ -35,4 +41,12 @@
 .categories {
     margin-left: 10px;
     width: 300px;
+}
+
+button[color="primary"] {
+    background: #fd8a02;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    fill: #fd8a02 !important;
 }
