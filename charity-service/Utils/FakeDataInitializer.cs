@@ -22,12 +22,12 @@ namespace CharityService.Utils
 
         public void Init()
         {
-            foundations = InitFoundations(20);
+            foundations = InitFoundations(5);
 
             applicationDbContext.Foundations.AddRange(foundations);
             applicationDbContext.SaveChanges();
 
-            categories = InitCategories(10);
+            categories = InitCategories(5);
 
             applicationDbContext.Categories.AddRange(categories);
             applicationDbContext.SaveChanges();
@@ -37,7 +37,7 @@ namespace CharityService.Utils
             applicationDbContext.Projects.AddRange(projects);
             applicationDbContext.SaveChanges();
 
-            projectCategories = InitProjectCategories(10, projects, categories);
+            projectCategories = InitProjectCategories(30, projects, categories);
 
             applicationDbContext.ProjectCategories.AddRange(projectCategories);
             applicationDbContext.SaveChanges();
@@ -66,7 +66,7 @@ namespace CharityService.Utils
         {
             var projects = new Faker<Project>()
             .RuleFor(c => c.Name, f => f.Lorem.Sentence(5))
-            .RuleFor(c => c.Description, f => f.Lorem.Paragraph(2))
+            .RuleFor(c => c.Description, f => f.Lorem.Paragraph(7))
             .RuleFor(c => c.Image, f => f.Image.LoremPixelUrl("random", 640, 480, true, false))
             .RuleFor(c => c.FoundationId, f => f.PickRandom(foundations).Id)
             .Generate(amount);

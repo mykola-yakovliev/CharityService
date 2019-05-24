@@ -30,7 +30,7 @@
                 <input matInput type="text" placeholder="Amount (€)" formControlName="amount">
             </mat-form-field>
             <mat-form-field>
-                <mat-select placeholder="Payment method">
+                <mat-select placeholder="Payment method" value="Visa">
                     <mat-option *ngFor="let type of paymentTypes" [value]="type">
                         {{type}}
                     </mat-option>

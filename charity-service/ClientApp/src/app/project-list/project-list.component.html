@@ -1,3 +1,33 @@
+<div class="project-filters">
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Filters</mat-panel-title>
+            </mat-expansion-panel-header>
+            <form [formGroup]="filterForm">
+                <div class="foundations">
+                    <ng-container formArrayName="foundations">
+                        <div *ngFor="let foundation of foundations; let i = index" >
+                            <mat-checkbox class="example-margin" [formControlName]="i">
+                                {{foundation.name}}
+                            </mat-checkbox>
+                        </div>
+                    </ng-container>
+                </div>
+                
+                <div class="categories">
+                    <ng-container formArrayName="categories">
+                        <div *ngFor="let category of categories; let i = index" >
+                            <mat-checkbox class="example-margin" [formControlName]="i">
+                                {{category.name}}
+                            </mat-checkbox>
+                        </div>
+                    </ng-container>
+                </div>
+            </form>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
 <div class="project-list">
     <mat-card *ngFor="let project of projects" class="project-card">
         <mat-card-header>

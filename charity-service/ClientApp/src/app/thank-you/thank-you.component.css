@@ -42,3 +42,7 @@ mat-icon {
     height: 90px;
     color: #FDD3AE;
 }
+
+button[color="primary"] {
+    background: #fd8a02;
+}

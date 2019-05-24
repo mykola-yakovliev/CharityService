@@ -1,10 +1,10 @@
 .project-details {
     display: flex;
     flex-direction: column;
-    width: 1024px;
+    width: 100%;
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    margin-top: 20px;
     font-family: Roboto,"Helvetica Neue",sans-serif;
+    height: 100vh;
 }
 
 .project-details-content {
@@ -47,5 +47,9 @@
 }
 
 .project-details-button button:first-child {
-    margin-right: 20px;
+    margin: 0 20px 20px 0;
+}
+
+button[color="primary"] {
+    background: #fd8a02;
 }

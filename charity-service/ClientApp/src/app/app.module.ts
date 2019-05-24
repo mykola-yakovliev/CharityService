@@ -16,8 +16,10 @@ import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -32,10 +34,13 @@ import {MatSelectModule} from '@angular/material/select';
     MatChipsModule,
     MatButtonModule,
     MatIconModule,
+    MatCheckboxModule,
     MatInputModule,
     MatSelectModule,
+    MatExpansionModule,
     ReactiveFormsModule,
 
+    ReactiveFormsModule,
     RouterModule.forRoot(ROUTES),
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     BrowserAnimationsModule,

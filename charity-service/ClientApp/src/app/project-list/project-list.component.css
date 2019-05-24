@@ -2,14 +2,15 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 50px;
 }
 
 .project-card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between; 
-    flex-basis: 472px;
-    margin: 20px;
+    justify-content: space-between;
+    flex-basis: 550px;
+    margin: 20px 10px;
 }
 
 .project-card mat-card-content {
@@ -19,4 +20,47 @@
 .example-header-image {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
+}
+
+.project-filters form {
+    display: flex;
+    width: 1024px;
+    justify-content: center;
+}
+
+.project-filters {
+    position: fixed;
+    z-index: 1000;
+    width: 1140px;
+}
+
+.foundations {    
+    width: 400px;
+    margin-right: 10px;
+}
+
+.categories {
+    margin-left: 10px;
+    width: 300px;
+}
+
+button[color="primary"] {
+    background: #fd8a02;
+}
+
+:host /deep/ .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #fd8a02 !important;
+}
+
+mat-card-actions button {
+    margin: 0;
+}
+
+mat-card-actions button:first-child {
+    margin-right: 20px;
+}
+
+mat-expansion-panel,
+mat-accordion {
+    width: 100%;
 }
