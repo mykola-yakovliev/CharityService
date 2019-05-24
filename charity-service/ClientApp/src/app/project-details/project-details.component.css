@@ -49,3 +49,7 @@
 .project-details-button button:first-child {
     margin-right: 20px;
 }
+
+button[color="primary"] {
+    background: #fd8a02;
+}
