@@ -1,0 +1,65 @@
+.project-details {
+    display: flex;
+    flex-direction: column;
+    width: 1024px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    margin-top: 20px;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+.project-details-content {
+    display: flex;
+}
+
+.project-details-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.project-details-img-wrapper {
+    margin: 20px;
+}
+
+.project-details-img-wrapper img {
+    width: 350px;
+    height: 263px;
+}
+
+.project-details-main-info-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.project-details-name {
+    font-size: 20px;
+    margin: 12px 0;
+}
+
+.project-details-foundations {
+    margin-top: 20px;
+    color: rgba(0,0,0,0.54);
+    font-size: 14px;
+}
+
+.project-details-description {
+    padding: 20px;
+}
+
+.project-details-button button:first-child {
+    margin-right: 20px;
+}
+
+.payment-user-data {
+    display: flex;
+    justify-content: space-between;
+}
+
+.payment-amount {
+    display: flex;
+    justify-content: space-between;
+}
+
+mat-form-field {
+    width: 300px;
+}

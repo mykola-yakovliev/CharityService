@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SampleDataClient, WeatherForecast, ProjectsClient, ProjectApiModel } from 'src/generated';
+import { WeatherForecast, ProjectsClient, ProjectApiModel } from 'src/generated';
 import { Router } from '@angular/router';
 import { appRoutes } from '../app.routes';
 
@@ -10,7 +10,6 @@ import { appRoutes } from '../app.routes';
 })
 export class ProjectListComponent implements OnInit {
   public data: WeatherForecast[] = [];
-  
   public projects: ProjectApiModel[] = [];
 
   constructor(private _projectClient: ProjectsClient, private router: Router) { }
@@ -21,5 +20,9 @@ export class ProjectListComponent implements OnInit {
 
   goToDetails(id: number) {
     this.router.navigate([appRoutes.ProjectDetails.path, id]);
+  }
+
+  goToPayment(id: number) {
+      this.router.navigate([appRoutes.ProjectDetails.path + id + appRoutes.PaymentPage.path]);
   }
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -16,6 +16,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,9 @@ import {MatIconModule} from '@angular/material/icon';
     MatChipsModule,
     MatButtonModule,
     MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    ReactiveFormsModule,
 
     RouterModule.forRoot(ROUTES),
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

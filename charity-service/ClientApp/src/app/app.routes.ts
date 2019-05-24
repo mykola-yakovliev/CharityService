@@ -13,6 +13,6 @@ export enum RouteNames {
 export const appRoutes: { [key in keyof typeof RouteNames]: IRouteData } = {
     ProjectList: { path: '', fullPath: '' },
     ProjectDetails: { path: 'project/', fullPath: 'project/:id' },
-    PaymentPage: { path: 'pay', fullPath: 'project/:id/pay' },
+    PaymentPage: { path: '/pay', fullPath: 'project/:id/pay' },
     ThankYouPage: { path: 'thank-you', fullPath: 'thank-you' }
 };
