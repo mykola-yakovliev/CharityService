@@ -56,7 +56,7 @@ namespace CharityService.Controllers
             return projects;
         }
 
-        [HttpGet]
+        [HttpGet("{id}", Name = "GetProject")]
         public async Task<ProjectApiModel> GetProject(int id)
         {
             Project project = await context.Projects
