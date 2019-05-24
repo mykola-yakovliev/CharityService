@@ -8,9 +8,9 @@
 .project-card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between; 
-    flex-basis: 472px;
-    margin: 20px;
+    justify-content: space-between;
+    flex-basis: 550px;
+    margin: 20px 10px;
 }
 
 .project-card mat-card-content {
@@ -31,6 +31,7 @@
 .project-filters {
     position: fixed;
     z-index: 1000;
+    width: 1140px;
 }
 
 .foundations {    
@@ -47,6 +48,19 @@ button[color="primary"] {
     background: #fd8a02;
 }
 
-.mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    fill: #fd8a02 !important;
+:host /deep/ .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #fd8a02 !important;
+}
+
+mat-card-actions button {
+    margin: 0;
+}
+
+mat-card-actions button:first-child {
+    margin-right: 20px;
+}
+
+mat-expansion-panel,
+mat-accordion {
+    width: 100%;
 }

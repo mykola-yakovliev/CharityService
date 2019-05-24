@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { SampleDataClient, WeatherForecast, ProjectsClient, ProjectApiModel, CategoriesClient, FoundationsClient } from 'src/generated';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { appRoutes } from '../app.routes';
 
 @Component({
@@ -20,10 +20,14 @@ export class ProjectListComponent implements OnInit {
                 private _foundationsClient: FoundationsClient,
                 private _categoriesClient: CategoriesClient,
                 private router: Router,
+                private route: ActivatedRoute,
                 private fb: FormBuilder,
                 private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
+    const paymentParam;
+    this.route.queryParams.subscribe(({ tocharity }) => paymentParam = tocharity);
+    sessionStorage.setItem('tocharity', paymentParam);
     this.initFilterForm();
     this._projectClient.getProjects(null, null).subscribe((projects) => this.projects = projects);
     this._foundationsClient.list().subscribe(foundations => {
@@ -80,9 +84,6 @@ export class ProjectListComponent implements OnInit {
             categoryIds.push(this.categories[index].id);
         }
     });
-
-    console.log(foundationsIds, ' ', categoryIds);
-
     this._projectClient.getProjects(foundationsIds, categoryIds).subscribe((projects) => this.projects = projects);
   }
 

@@ -1,9 +1,9 @@
 .project-details {
     display: flex;
     flex-direction: column;
-    width: 1024px;
+    width: 1140px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    margin-top: 20px;
+    height: 100vh;
     font-family: Roboto,"Helvetica Neue",sans-serif;
 }
 

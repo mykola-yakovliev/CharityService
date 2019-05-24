@@ -25,11 +25,13 @@ export class PaymentPageComponent implements OnInit {
                 private router: Router) { }
 
     public ngOnInit(): void {
+        let defaultAmount = sessionStorage.getItem('tocharity');
+        defaultAmount = (defaultAmount && defaultAmount !== 'undefined') ? defaultAmount : 0;
         this.paymentData = this.fb.group({
             name: [''],
             surname: [''],
             email: ['', Validators.email],
-            amount: ['150', Validators.compose([Validators.pattern(/^[0-9]*$/), Validators.maxLength(8)])]
+            amount: [defaultAmount, Validators.compose([Validators.pattern(/^[0-9.]*$/), Validators.maxLength(8), this.moreThanO()])]
         });
         this.route.params.subscribe(({ id }: { id: number }) => {
             this.id = id;
@@ -42,6 +44,30 @@ export class PaymentPageComponent implements OnInit {
     }
 
     public toThankYou() {
-        this.router.navigate([appRoutes.ThankYouPage.path]);
+        if (this.paymentData.valid) {
+            this.router.navigate([appRoutes.ThankYouPage.path]);
+        } else {
+            this.markFormGroupTouched(this.paymentData);
+        }
     }
+
+    private markFormGroupTouched(formGroup: FormGroup) {
+        (<any>Object).values(formGroup.controls).forEach(control => {
+            control.markAsTouched();
+        });
+    }
+
+    private moreThanO(requiredIf: boolean): ValidatorFn {
+
+        return (control: AbstractControl): ValidationErrors | null => {
+            const value = control.value;
+            if (value <= 0) {
+                return {
+                    requiredIf: {condition: requiredIf}
+                };
+            }
+            return null;
+        };
+    }
+
 }
