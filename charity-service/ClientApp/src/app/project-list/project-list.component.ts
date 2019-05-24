@@ -25,7 +25,7 @@ export class ProjectListComponent implements OnInit {
                 private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
-    const paymentParam;
+    let paymentParam;
     this.route.queryParams.subscribe(({ tocharity }) => paymentParam = tocharity);
     sessionStorage.setItem('tocharity', paymentParam);
     this.initFilterForm();

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectApiModel, ProjectsClient } from 'src/generated';
 import { appRoutes } from '../app.routes';
@@ -25,7 +25,7 @@ export class PaymentPageComponent implements OnInit {
                 private router: Router) { }
 
     public ngOnInit(): void {
-        let defaultAmount = sessionStorage.getItem('tocharity');
+        let defaultAmount: string | 0 = sessionStorage.getItem('tocharity');
         defaultAmount = (defaultAmount && defaultAmount !== 'undefined') ? defaultAmount : 0;
         this.paymentData = this.fb.group({
             name: [''],
@@ -57,13 +57,13 @@ export class PaymentPageComponent implements OnInit {
         });
     }
 
-    private moreThanO(requiredIf: boolean): ValidatorFn {
+    private moreThanO(): ValidatorFn {
 
         return (control: AbstractControl): ValidationErrors | null => {
             const value = control.value;
             if (value <= 0) {
                 return {
-                    requiredIf: {condition: requiredIf}
+                    requiredIf: {error: 'less than 0'}
                 };
             }
             return null;
